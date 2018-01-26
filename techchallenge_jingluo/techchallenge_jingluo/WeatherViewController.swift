@@ -7,19 +7,35 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class WeatherViewController: UIViewController {
 
+    var viewModel: WeatherViewModel?
+    fileprivate let disposeBag = DisposeBag()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        configViewModel()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-
+    
+    fileprivate func configViewModel() {
+        viewModel = WeatherViewModel(ApiClient())
+        
+        viewModel?.weather.asObservable()
+            .subscribe(onNext: { w in
+                print(w?.currently?.summary ?? "Empty")
+            }, onError: { error in
+                print(error.localizedDescription)
+            }, onCompleted: nil, onDisposed: nil)
+            .disposed(by: disposeBag)
+    }
 
 }
 
