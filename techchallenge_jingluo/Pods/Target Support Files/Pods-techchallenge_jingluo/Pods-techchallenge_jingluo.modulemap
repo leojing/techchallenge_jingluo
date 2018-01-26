@@ -1,0 +1,6 @@
+framework module Pods_techchallenge_jingluo {
+  umbrella header "Pods-techchallenge_jingluo-umbrella.h"
+
+  export *
+  module * { export * }
+}
