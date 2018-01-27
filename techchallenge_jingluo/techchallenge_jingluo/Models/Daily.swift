@@ -11,7 +11,7 @@ import ObjectMapper
 
 class Daily : NSObject, NSCoding, Mappable{
 
-	var data : [Data]?
+	var data : [WeatherDetail]?
 	var icon : String?
 	var summary : String?
 
@@ -36,7 +36,7 @@ class Daily : NSObject, NSCoding, Mappable{
     */
     @objc required init(coder aDecoder: NSCoder)
 	{
-         data = aDecoder.decodeObject(forKey: "data") as? [Data]
+         data = aDecoder.decodeObject(forKey: "data") as? [WeatherDetail]
          icon = aDecoder.decodeObject(forKey: "icon") as? String
          summary = aDecoder.decodeObject(forKey: "summary") as? String
 

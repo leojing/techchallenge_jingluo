@@ -9,7 +9,7 @@ import Foundation
 import ObjectMapper
 
 
-class Data : NSObject, NSCoding, Mappable{
+class WeatherDetail : NSObject, NSCoding, Mappable{
 
 	var apparentTemperatureHigh : Float?
 	var apparentTemperatureHighTime : Int?
@@ -54,7 +54,7 @@ class Data : NSObject, NSCoding, Mappable{
 
 
 	class func newInstance(map: Map) -> Mappable?{
-		return Data()
+		return WeatherDetail()
 	}
 	required init?(map: Map){}
 	private override init(){}

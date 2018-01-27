@@ -9,6 +9,29 @@
 			<key>orderHint</key>
 			<integer>9</integer>
 		</dict>
+		<key>techchallenge_jingluoTests.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>10</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>244B9A8E201B353600BB5B52</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>244B9AA2201B353600BB5B52</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>244B9AAD201B353600BB5B52</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 	</dict>
 </dict>
 </plist>

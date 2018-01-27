@@ -29,12 +29,27 @@ class WeatherViewController: UIViewController {
         viewModel = WeatherViewModel(ApiClient())
         
         viewModel?.weather.asObservable()
+            .filter{$0 != nil}
             .subscribe(onNext: { w in
                 print(w?.currently?.summary ?? "Empty")
             }, onError: { error in
                 print(error.localizedDescription)
             }, onCompleted: nil, onDisposed: nil)
             .disposed(by: disposeBag)
+        
+        viewModel?.dailyData?
+            .filter{$0 != nil}
+            .subscribe(onNext: { data in
+                print(data?.count ?? 0)
+        }, onError: nil, onCompleted: nil, onDisposed: nil)
+        .disposed(by: disposeBag)
+        
+        viewModel?.hourlyData?
+            .filter{$0 != nil}
+            .subscribe(onNext: { data in
+            print(data?.count ?? 0)
+        }, onError: nil, onCompleted: nil, onDisposed: nil)
+        .disposed(by: disposeBag)
     }
 
 }

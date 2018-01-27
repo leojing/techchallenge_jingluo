@@ -7,10 +7,16 @@
 //
 
 import XCTest
+import RxCocoa
+import RxSwift
+import ObjectMapper
 @testable import techchallenge_jingluo
 
 class techchallenge_jingluoTests: XCTestCase {
     
+    fileprivate let disposeBag = DisposeBag()
+    var viewModel: WeatherViewModel?
+
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -21,9 +27,19 @@ class techchallenge_jingluoTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testApiClient() {
+        MockApiClient().fetchWeatherInfo(ApiConfig.forecase(33.8650, 151.2094))
+            .subscribe(onNext: { status in
+                switch status {
+                case .success(let weather):
+                    XCTAssertEqual(weather.currently?.summary, "Drizzle")
+                    XCTAssertEqual(weather.hourly?.summary, "Light rain tomorrow morning and windy starting tomorrow morning.")
+                    
+                case .fail(let error):
+                    print(error.errorDescription ?? "Faild to load weather data")
+                }
+            }, onError: nil, onCompleted: nil, onDisposed: nil)
+        .disposed(by: disposeBag)
     }
     
     func testPerformanceExample() {
@@ -34,3 +50,42 @@ class techchallenge_jingluoTests: XCTestCase {
     }
     
 }
+
+class MockApiClient: ApiClient {
+    
+    override func fetchWeatherInfo(_ config: ApiConfig) -> Observable<RequestStatus> {
+        return super.fetchWeatherInfo(config)
+    }
+    
+    override func networkRequest(_ url: URL, completionHandler: @escaping ((_ jsonResponse: [String: Any]?, _ error: RequestError?) -> Void)) {
+        guard let json = JsonFileLoader.loadJson(fileName: "MockData") as? [String: Any] else {
+            completionHandler(nil, RequestError("Parse Weather information failed."))
+            return
+        }
+        
+        completionHandler(json, nil)
+    }
+
+}
+
+class JsonFileLoader {
+    
+    class func loadJson(fileName: String) -> Any? {
+        
+        if let url = Bundle.main.url(forResource: fileName, withExtension: "json") {
+            if let data = NSData(contentsOf: url) {
+                do {
+                    return try JSONSerialization.jsonObject(with: data as Data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+                } catch {
+                    print("Error!! Unable to parse  \(fileName).json")
+                }
+            }
+            print("Error!! Unable to load  \(fileName).json")
+        } else {
+            print("invalid url")
+        }
+        
+        return nil
+    }
+}
+

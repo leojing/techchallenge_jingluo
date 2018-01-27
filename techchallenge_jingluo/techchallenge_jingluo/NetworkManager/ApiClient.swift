@@ -18,24 +18,39 @@ class ApiClient: ApiService {
         let url = config.getFullURL()
         
         return Observable<RequestStatus>.create { observable -> Disposable in
-            Alamofire.request(url)
-                .responseJSON { response in
-                    guard let json = response.result.value as? [String: Any] else {
-                        print("Error: \(String(describing: response.result.error))")
-                        observable.onNext(RequestStatus.fail(RequestError((response.result.error?.localizedDescription)!)))
-                        observable.onCompleted()
-                        return
-                    }
-                    if let weather = Mapper<Weather>().map(JSON: json) {
-                        observable.onNext(RequestStatus.success(weather))
-                        observable.onCompleted()
+            self.networkRequest(url, completionHandler: { (json, error) in
+                guard let json = json else {
+                    if let error = error {
+                        observable.onNext(RequestStatus.fail(error))
                     } else {
                         observable.onNext(RequestStatus.fail(RequestError("Parse Weather information failed.")))
-                        observable.onCompleted()
                     }
-            }
+                    observable.onCompleted()
+                    return
+                }
+                if let weather = Mapper<Weather>().map(JSON: json) {
+                    observable.onNext(RequestStatus.success(weather))
+                    observable.onCompleted()
+                } else {
+                    observable.onNext(RequestStatus.fail(RequestError("Parse Weather information failed.")))
+                    observable.onCompleted()
+                }
+            })
             return Disposables.create()
             }.share()
+    }
+    
+    func networkRequest(_ url: URL, completionHandler: @escaping ((_ jsonResponse: [String: Any]?, _ error: RequestError?) -> Void)) {
+        Alamofire.request(url)
+            .responseJSON(queue: DispatchQueue.global(), options: .allowFragments) { response in
+                guard let json = response.result.value as? [String: Any] else {
+                    print("Error: \(String(describing: response.result.error))")
+                    completionHandler(nil, RequestError((response.result.error?.localizedDescription)!))
+                    return
+                }
+                
+                completionHandler(json, nil)
+        }
     }
 }
 
