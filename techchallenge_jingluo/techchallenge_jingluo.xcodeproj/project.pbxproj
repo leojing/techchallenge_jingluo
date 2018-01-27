@@ -22,10 +22,20 @@
 		244B9ACF201B52ED00BB5B52 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244B9ACE201B52ED00BB5B52 /* ApiService.swift */; };
 		244B9AD1201B530200BB5B52 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244B9AD0201B530200BB5B52 /* ApiClient.swift */; };
 		244B9AD3201B533100BB5B52 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244B9AD2201B533100BB5B52 /* WeatherViewModel.swift */; };
-		244B9AD5201B537400BB5B52 /* WeatherDisplayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244B9AD4201B537400BB5B52 /* WeatherDisplayModel.swift */; };
-		244B9AD7201B538C00BB5B52 /* WeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244B9AD6201B538C00BB5B52 /* WeatherTableViewCell.swift */; };
+		244B9AD7201B538C00BB5B52 /* DailyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244B9AD6201B538C00BB5B52 /* DailyTableViewCell.swift */; };
 		244B9ADA201C0A4100BB5B52 /* MockData.json in Resources */ = {isa = PBXBuildFile; fileRef = 244B9AD9201C0A4100BB5B52 /* MockData.json */; };
 		244B9ADB201C12F200BB5B52 /* MockData.json in Resources */ = {isa = PBXBuildFile; fileRef = 244B9AD9201C0A4100BB5B52 /* MockData.json */; };
+		244B9ADD201C148B00BB5B52 /* HourlyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244B9ADC201C148B00BB5B52 /* HourlyCollectionViewCell.swift */; };
+		244B9ADF201C1AD500BB5B52 /* ThemeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244B9ADE201C1AD500BB5B52 /* ThemeColor.swift */; };
+		244B9AE1201C26A600BB5B52 /* DailyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 244B9AE0201C26A600BB5B52 /* DailyTableViewCell.xib */; };
+		244B9AE3201C297200BB5B52 /* HourlyCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 244B9AE2201C297200BB5B52 /* HourlyCollectionViewCell.xib */; };
+		244B9AE7201C723400BB5B52 /* UIView+Customise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244B9AE6201C723400BB5B52 /* UIView+Customise.swift */; };
+		244B9AE9201C764800BB5B52 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244B9AE8201C764800BB5B52 /* LocationService.swift */; };
+		244B9AEB201C9E3300BB5B52 /* WeatherDisplayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244B9AEA201C9E3300BB5B52 /* WeatherDisplayModel.swift */; };
+		244B9AEE201CA2D500BB5B52 /* String+Customise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244B9AED201CA2D500BB5B52 /* String+Customise.swift */; };
+		244B9AF0201CA8A000BB5B52 /* Date+Customise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244B9AEF201CA8A000BB5B52 /* Date+Customise.swift */; };
+		244B9AF4201CB73F00BB5B52 /* MockData_empty.json in Resources */ = {isa = PBXBuildFile; fileRef = 244B9AF3201CB73F00BB5B52 /* MockData_empty.json */; };
+		244B9AF5201CB74A00BB5B52 /* MockData_empty.json in Resources */ = {isa = PBXBuildFile; fileRef = 244B9AF3201CB73F00BB5B52 /* MockData_empty.json */; };
 		4F0DD8CF97A185765F6709C3 /* Pods_techchallenge_jingluoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F9087902E107DD469D5B710 /* Pods_techchallenge_jingluoTests.framework */; };
 		C838A93C19CE9E7685D9FB87 /* Pods_techchallenge_jingluo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C7CAEE4F19FDDA584A0A1D /* Pods_techchallenge_jingluo.framework */; };
 /* End PBXBuildFile section */
@@ -70,9 +80,18 @@
 		244B9ACE201B52ED00BB5B52 /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		244B9AD0201B530200BB5B52 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		244B9AD2201B533100BB5B52 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
-		244B9AD4201B537400BB5B52 /* WeatherDisplayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDisplayModel.swift; sourceTree = "<group>"; };
-		244B9AD6201B538C00BB5B52 /* WeatherTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTableViewCell.swift; sourceTree = "<group>"; };
+		244B9AD6201B538C00BB5B52 /* DailyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTableViewCell.swift; sourceTree = "<group>"; };
 		244B9AD9201C0A4100BB5B52 /* MockData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MockData.json; sourceTree = "<group>"; };
+		244B9ADC201C148B00BB5B52 /* HourlyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyCollectionViewCell.swift; sourceTree = "<group>"; };
+		244B9ADE201C1AD500BB5B52 /* ThemeColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeColor.swift; sourceTree = "<group>"; };
+		244B9AE0201C26A600BB5B52 /* DailyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DailyTableViewCell.xib; sourceTree = "<group>"; };
+		244B9AE2201C297200BB5B52 /* HourlyCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HourlyCollectionViewCell.xib; sourceTree = "<group>"; };
+		244B9AE6201C723400BB5B52 /* UIView+Customise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Customise.swift"; sourceTree = "<group>"; };
+		244B9AE8201C764800BB5B52 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		244B9AEA201C9E3300BB5B52 /* WeatherDisplayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDisplayModel.swift; sourceTree = "<group>"; };
+		244B9AED201CA2D500BB5B52 /* String+Customise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Customise.swift"; sourceTree = "<group>"; };
+		244B9AEF201CA8A000BB5B52 /* Date+Customise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Customise.swift"; sourceTree = "<group>"; };
+		244B9AF3201CB73F00BB5B52 /* MockData_empty.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MockData_empty.json; sourceTree = "<group>"; };
 		4B532D6CA907861D833638F5 /* Pods-techchallenge_jingluoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-techchallenge_jingluoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-techchallenge_jingluoTests/Pods-techchallenge_jingluoTests.release.xcconfig"; sourceTree = "<group>"; };
 		6CA62A8F00BAC8173F990F33 /* Pods-techchallenge_jingluo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-techchallenge_jingluo.release.xcconfig"; path = "Pods/Target Support Files/Pods-techchallenge_jingluo/Pods-techchallenge_jingluo.release.xcconfig"; sourceTree = "<group>"; };
 		755346A249A19282D4AF17E6 /* Pods-techchallenge_jingluoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-techchallenge_jingluoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-techchallenge_jingluoTests/Pods-techchallenge_jingluoTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -141,6 +160,7 @@
 		244B9A91201B353600BB5B52 /* techchallenge_jingluo */ = {
 			isa = PBXGroup;
 			children = (
+				244B9AEC201CA2C000BB5B52 /* Utilis */,
 				244B9ACB201B52BB00BB5B52 /* NetworkManager */,
 				244B9AC0201B3FBB00BB5B52 /* Models */,
 				244B9ACD201B52D100BB5B52 /* Views */,
@@ -158,6 +178,7 @@
 		244B9AA6201B353600BB5B52 /* techchallenge_jingluoTests */ = {
 			isa = PBXGroup;
 			children = (
+				244B9AF3201CB73F00BB5B52 /* MockData_empty.json */,
 				244B9AD9201C0A4100BB5B52 /* MockData.json */,
 				244B9AA7201B353600BB5B52 /* techchallenge_jingluoTests.swift */,
 				244B9AA9201B353600BB5B52 /* Info.plist */,
@@ -182,7 +203,8 @@
 				244B9AC2201B526700BB5B52 /* WeatherDetail.swift */,
 				244B9AC4201B526700BB5B52 /* Flag.swift */,
 				244B9AC5201B526700BB5B52 /* Weather.swift */,
-				244B9AD4201B537400BB5B52 /* WeatherDisplayModel.swift */,
+				244B9ADE201C1AD500BB5B52 /* ThemeColor.swift */,
+				244B9AEA201C9E3300BB5B52 /* WeatherDisplayModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -192,6 +214,7 @@
 			children = (
 				244B9ACE201B52ED00BB5B52 /* ApiService.swift */,
 				244B9AD0201B530200BB5B52 /* ApiClient.swift */,
+				244B9AE8201C764800BB5B52 /* LocationService.swift */,
 			);
 			path = NetworkManager;
 			sourceTree = "<group>";
@@ -208,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				244B9AD8201B54D000BB5B52 /* Cells */,
+				244B9AE6201C723400BB5B52 /* UIView+Customise.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -215,9 +239,21 @@
 		244B9AD8201B54D000BB5B52 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				244B9AD6201B538C00BB5B52 /* WeatherTableViewCell.swift */,
+				244B9AD6201B538C00BB5B52 /* DailyTableViewCell.swift */,
+				244B9AE0201C26A600BB5B52 /* DailyTableViewCell.xib */,
+				244B9ADC201C148B00BB5B52 /* HourlyCollectionViewCell.swift */,
+				244B9AE2201C297200BB5B52 /* HourlyCollectionViewCell.xib */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		244B9AEC201CA2C000BB5B52 /* Utilis */ = {
+			isa = PBXGroup;
+			children = (
+				244B9AED201CA2D500BB5B52 /* String+Customise.swift */,
+				244B9AEF201CA8A000BB5B52 /* Date+Customise.swift */,
+			);
+			path = Utilis;
 			sourceTree = "<group>";
 		};
 		9F42E0DD156002CA352DD2CD /* Pods */ = {
@@ -344,10 +380,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				244B9AF5201CB74A00BB5B52 /* MockData_empty.json in Resources */,
 				244B9ADB201C12F200BB5B52 /* MockData.json in Resources */,
+				244B9AE1201C26A600BB5B52 /* DailyTableViewCell.xib in Resources */,
 				244B9A9D201B353600BB5B52 /* LaunchScreen.storyboard in Resources */,
 				244B9A9A201B353600BB5B52 /* Assets.xcassets in Resources */,
 				244B9A98201B353600BB5B52 /* Main.storyboard in Resources */,
+				244B9AE3201C297200BB5B52 /* HourlyCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,6 +395,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				244B9ADA201C0A4100BB5B52 /* MockData.json in Resources */,
+				244B9AF4201CB73F00BB5B52 /* MockData_empty.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -492,16 +532,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				244B9AD7201B538C00BB5B52 /* WeatherTableViewCell.swift in Sources */,
+				244B9AF0201CA8A000BB5B52 /* Date+Customise.swift in Sources */,
+				244B9AD7201B538C00BB5B52 /* DailyTableViewCell.swift in Sources */,
 				244B9A95201B353600BB5B52 /* WeatherViewController.swift in Sources */,
 				244B9AC9201B526700BB5B52 /* Flag.swift in Sources */,
 				244B9AD1201B530200BB5B52 /* ApiClient.swift in Sources */,
+				244B9AE7201C723400BB5B52 /* UIView+Customise.swift in Sources */,
 				244B9A93201B353600BB5B52 /* AppDelegate.swift in Sources */,
+				244B9ADF201C1AD500BB5B52 /* ThemeColor.swift in Sources */,
 				244B9AC8201B526700BB5B52 /* Currently.swift in Sources */,
 				244B9AD3201B533100BB5B52 /* WeatherViewModel.swift in Sources */,
+				244B9ADD201C148B00BB5B52 /* HourlyCollectionViewCell.swift in Sources */,
+				244B9AE9201C764800BB5B52 /* LocationService.swift in Sources */,
+				244B9AEE201CA2D500BB5B52 /* String+Customise.swift in Sources */,
+				244B9AEB201C9E3300BB5B52 /* WeatherDisplayModel.swift in Sources */,
 				244B9ACA201B526700BB5B52 /* Weather.swift in Sources */,
 				244B9AC6201B526700BB5B52 /* Daily.swift in Sources */,
-				244B9AD5201B537400BB5B52 /* WeatherDisplayModel.swift in Sources */,
 				244B9ACF201B52ED00BB5B52 /* ApiService.swift in Sources */,
 				244B9AC7201B526700BB5B52 /* WeatherDetail.swift in Sources */,
 			);

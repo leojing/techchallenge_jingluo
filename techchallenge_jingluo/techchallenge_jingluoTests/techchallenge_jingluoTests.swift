@@ -27,7 +27,7 @@ class techchallenge_jingluoTests: XCTestCase {
         super.tearDown()
     }
     
-    func testApiClient() {
+    func testApiClientSuccess() {
         MockApiClient().fetchWeatherInfo(ApiConfig.forecase(33.8650, 151.2094))
             .subscribe(onNext: { status in
                 switch status {
@@ -42,30 +42,46 @@ class techchallenge_jingluoTests: XCTestCase {
         .disposed(by: disposeBag)
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    func testApiClientEmpty() {
+        let mockApiClient = MockApiClient()
+        mockApiClient.jsonFileName = .mockDataEmpty
+        mockApiClient.fetchWeatherInfo(ApiConfig.forecase(33.8650, 151.2094))
+            .subscribe(onNext: { status in
+                switch status {
+                case .success(let weather):
+                    XCTAssertNil(weather.currently?.summary)
+                    XCTAssertEqual(weather.hourly?.summary, "Light rain tomorrow morning and windy starting tomorrow morning.")
+                    
+                case .fail(let error):
+                    print(error.errorDescription ?? "Faild to load weather data")
+                }
+            }, onError: nil, onCompleted: nil, onDisposed: nil)
+            .disposed(by: disposeBag)
+
     }
-    
 }
 
 class MockApiClient: ApiClient {
+    
+    enum JsonFileName: String {
+        case mockData = "MockData"
+        case mockDataEmpty = "MockData_empty"
+    }
+    
+    var jsonFileName = JsonFileName.mockData
     
     override func fetchWeatherInfo(_ config: ApiConfig) -> Observable<RequestStatus> {
         return super.fetchWeatherInfo(config)
     }
     
     override func networkRequest(_ url: URL, completionHandler: @escaping ((_ jsonResponse: [String: Any]?, _ error: RequestError?) -> Void)) {
-        guard let json = JsonFileLoader.loadJson(fileName: "MockData") as? [String: Any] else {
+        guard let json = JsonFileLoader.loadJson(fileName: jsonFileName.rawValue) as? [String: Any] else {
             completionHandler(nil, RequestError("Parse Weather information failed."))
             return
         }
         
         completionHandler(json, nil)
     }
-
 }
 
 class JsonFileLoader {
