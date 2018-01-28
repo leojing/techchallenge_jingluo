@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "closure #2 in WeatherViewController.setupBinds():WeatherViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #5 in WeatherViewController.setupBinds():WeatherViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in LocationService.fetchCity(_:completion:):LocationService.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "placemarks?.first!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
