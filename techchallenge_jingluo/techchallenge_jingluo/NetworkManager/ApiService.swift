@@ -34,12 +34,12 @@ enum ApiConfig  {
     fileprivate static let baseURLString = "https://api.darksky.net"
     fileprivate static let API_KEY = "2e3062644e2634fe02f4922be6e1ce68"
     
-    case forecase(Double, Double)
+    case forecase((Double, Double))
     
     var path: String {
         switch self {
-        case .forecase(let lat, let long):
-            return "/forecast/\(ApiConfig.API_KEY)/\(lat),\(long)"
+        case .forecase(let location):
+            return "/forecast/\(ApiConfig.API_KEY)/\(location.0),\(location.1)"
         }
     }
 

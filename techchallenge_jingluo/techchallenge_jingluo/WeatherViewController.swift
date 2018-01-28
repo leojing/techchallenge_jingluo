@@ -45,6 +45,18 @@ class WeatherViewController: UIViewController {
         dailyTableView.estimatedRowHeight = 80
         dailyTableView.rowHeight = UITableViewAutomaticDimension
         dailyTableView.register(DailyTableViewCell.nib(), forCellReuseIdentifier: DailyTableViewCell.reuseId())
+        
+        // MARK: set up tableview cell selected action
+        dailyTableView.rx.itemSelected
+            .subscribe(onNext: { indexPath in
+                let dailyData = self.viewModel?.dailyDataWithIndex(indexPath)
+                DispatchQueue.main.async {
+                    self.updateThemeColor(dailyData?.icon, updateSummaryViewInfo: WeatherDisplayModel(city: nil, summary: dailyData?.summary, temperature: dailyData?.temperatureHigh))
+                    
+                    // Hide hourly collectionView
+                    self.hideHourlyCollectionView(true, true)
+                }
+            }).disposed(by: disposeBag)
     }
     
     fileprivate func setupCollectionView() {
@@ -64,49 +76,31 @@ class WeatherViewController: UIViewController {
     }
     
     fileprivate func setupBinds() {
+        
         viewModel?.cityName.asObservable()
             .bind(to: self.cityLabel.rx.text)
             .disposed(by: disposeBag)
         
-        //MARK: bind Top info view and background theme color by currently weather data
+        // MARK: bind Top info view and background theme color by currently weather data
         viewModel?.weather.asObservable()
             .filter{$0 != nil}
             .subscribe(onNext: { w in
                 DispatchQueue.main.async {
-                    if let icon = w?.currently?.icon, let colors = ThemeColor.fromDescription(icon)?.convertToColor() {
-                        self.gradientView.insertThemeColorLayer(colors)
-                    }
-                    
-                    self.updateSummaryView(WeatherDisplayModel(city: nil, summary: w?.currently?.summary, temperature: w?.currently?.temperature))
+                    self.updateThemeColor(w?.currently?.icon, updateSummaryViewInfo: WeatherDisplayModel(city: nil, summary: w?.currently?.summary, temperature: w?.currently?.temperature))
                 }
             }, onError: { error in
                 print(error.localizedDescription)
             }, onCompleted: nil, onDisposed: nil)
             .disposed(by: disposeBag)
         
-        //MARK: bind daily data with dailyTableview
+        // MARK: bind daily data with dailyTableview
         viewModel?.dailyData.asObservable()
             .bind(to: dailyTableView.rx.items(cellIdentifier: DailyTableViewCell.reuseId(), cellType: DailyTableViewCell.self)) { (row, element, cell) in
                 cell.configureCell(element)
             }
             .disposed(by: disposeBag)
-        
-        //MARK: bind tableview cell selected action
-        dailyTableView.rx.itemSelected
-            .subscribe(onNext: { indexPath in
-                let dailyData = self.viewModel?.dailyDataWithIndex(indexPath)
-                DispatchQueue.main.async {
-                    if let icon = dailyData?.icon, let colors = ThemeColor.fromDescription(icon)?.convertToColor() {
-                        self.gradientView.insertThemeColorLayer(colors)
-                    }
 
-                    self.updateSummaryView((WeatherDisplayModel(city: nil, summary: dailyData?.summary, temperature: dailyData?.temperatureHigh)))
-                    self.collectionViewHeightConstraint.constant = 0
-                    self.view.layoutIfNeeded()
-                }
-            }).disposed(by: disposeBag)
-
-        //MARK: bind hourly data with hourlyCollectionView
+        // MARK: bind hourly data with hourlyCollectionView
         viewModel?.hourlyData?
             .bind(to: hourlyCollectionView.rx.items(cellIdentifier: HourlyCollectionViewCell.reuseId(), cellType: HourlyCollectionViewCell.self)) { (row, element, cell) in
                 cell.layoutIfNeeded()
@@ -115,24 +109,38 @@ class WeatherViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
+    // MARK: Actions
+    
+    @IBAction func tapGestureAction(_ sender: Any) {
+        let weather = viewModel?.weather.value
+        updateThemeColor(weather?.currently?.icon, updateSummaryViewInfo: WeatherDisplayModel(city: nil, summary: weather?.currently?.summary, temperature: weather?.currently?.temperature))
+        
+        // show hourly collectionView
+        hideHourlyCollectionView(false, true)
+    }
+    
+    // MARK: update UI
+    
+    fileprivate func updateThemeColor(_ icon: String?, updateSummaryViewInfo displayModel: WeatherDisplayModel?) {
+        if let icon = icon, let colors = ThemeColor.fromDescription(icon)?.convertToColor() {
+            self.gradientView.insertThemeColorLayer(colors)
+        }
+        
+        self.updateSummaryView(displayModel)
+    }
+    
     fileprivate func updateSummaryView(_ weather: WeatherDisplayModel?) {
         self.summaryLabel.text = weather?.summary ?? ""
         self.temperatureLabel.text = "\(String.fromInt(Int((weather?.temperature ?? 0))))℉"
     }
     
-    // MARK: Actions
-    
-    @IBAction func tapGestureAction(_ sender: Any) {
-        collectionViewHeightConstraint.constant = 120
-        self.view.layoutIfNeeded()
-        
-        let weather = viewModel?.weather.value
-        if let icon = weather?.currently?.icon, let colors = ThemeColor.fromDescription(icon)?.convertToColor() {
-            self.gradientView.insertThemeColorLayer(colors)
+    fileprivate func hideHourlyCollectionView(_ isHidden: Bool, _ animated: Bool) {
+        UIView.animate(withDuration: animated ? 0.3 : 0) {
+            self.collectionViewHeightConstraint.constant = isHidden ? 0: 120
+            self.view.layoutIfNeeded()
         }
-        
-        self.updateSummaryView(WeatherDisplayModel(city: nil, summary: weather?.currently?.summary, temperature: weather?.currently?.temperature))
     }
+
 }
 
 

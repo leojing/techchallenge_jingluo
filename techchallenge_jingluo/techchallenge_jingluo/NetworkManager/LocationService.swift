@@ -11,14 +11,14 @@ import CoreLocation
 
 class LocationService {
     
-    var location = CLLocation()
+    var currentLocation = CLLocation()
     
-    init(_ lat: Double, _ long: Double) {
-        location = CLLocation(latitude: lat, longitude: long)
+    init(_ location: (Double, Double)) {
+        currentLocation = CLLocation(latitude: location.0, longitude: location.1)
     }
     
     func fetchCity(_ completion: @escaping (String) -> ()) {
-        self.fetchCity(location, completion: completion)
+        self.fetchCity(currentLocation, completion: completion)
     }
     
     func fetchCity(_ location: CLLocation, completion: @escaping (String) -> ()) {

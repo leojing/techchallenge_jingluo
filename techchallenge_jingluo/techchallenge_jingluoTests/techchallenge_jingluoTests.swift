@@ -28,7 +28,7 @@ class techchallenge_jingluoTests: XCTestCase {
     }
     
     func testApiClientSuccess() {
-        MockApiClient().fetchWeatherInfo(ApiConfig.forecase(33.8650, 151.2094))
+        MockApiClient().fetchWeatherInfo(ApiConfig.forecase((33.8650, 151.2094)))
             .subscribe(onNext: { status in
                 switch status {
                 case .success(let weather):
@@ -45,7 +45,7 @@ class techchallenge_jingluoTests: XCTestCase {
     func testApiClientEmpty() {
         let mockApiClient = MockApiClient()
         mockApiClient.jsonFileName = .mockDataEmpty
-        mockApiClient.fetchWeatherInfo(ApiConfig.forecase(33.8650, 151.2094))
+        mockApiClient.fetchWeatherInfo(ApiConfig.forecase((33.8650, 151.2094)))
             .subscribe(onNext: { status in
                 switch status {
                 case .success(let weather):

@@ -12,7 +12,7 @@ import RxSwift
 
 class WeatherViewModel {
     
-    static let sydneyCoordinate = (-33.8650, 151.2094)
+    private let sydneyCoordinate = (-33.8650, 151.2094)
     
     let disposeBag = DisposeBag()
 
@@ -26,11 +26,11 @@ class WeatherViewModel {
         bindHourlyData()
 
         fetchWeatherInfo(apiService)
-        fetchCityName(LocationService(WeatherViewModel.sydneyCoordinate.0, WeatherViewModel.sydneyCoordinate.1))
+        fetchCityName(LocationService(sydneyCoordinate))
     }
     
     fileprivate func fetchWeatherInfo(_ apiService: ApiService) {
-        apiService.fetchWeatherInfo(ApiConfig.forecase(WeatherViewModel.sydneyCoordinate.0, WeatherViewModel.sydneyCoordinate.1))
+        apiService.fetchWeatherInfo(ApiConfig.forecase(sydneyCoordinate))
             .subscribe(onNext: { status in
                 switch status {
                 case .success(let weather):

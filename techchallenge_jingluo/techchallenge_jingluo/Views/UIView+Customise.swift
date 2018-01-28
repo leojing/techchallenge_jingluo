@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 extension UIView {
+    
     func insertThemeColorLayer(_ colors: (UIColor, UIColor)) {
         let gradient = CAGradientLayer()
         gradient.frame = self.bounds

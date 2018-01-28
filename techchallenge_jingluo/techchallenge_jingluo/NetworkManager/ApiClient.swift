@@ -40,6 +40,7 @@ class ApiClient: ApiService {
             }.share()
     }
     
+    // MARK: conform to ApiService protocol. For new class inherit from ApiClient class, you can overwrite this function and use any other HTTP networking libraries. Like in Unit test, I create MockApiClient which request network by load local JSON file.
     func networkRequest(_ url: URL, completionHandler: @escaping ((_ jsonResponse: [String: Any]?, _ error: RequestError?) -> Void)) {
         Alamofire.request(url)
             .responseJSON(queue: DispatchQueue.global(), options: .allowFragments) { response in
