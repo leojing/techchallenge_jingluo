@@ -7,7 +7,6 @@
 //
 
 import XCTest
-import RxCocoa
 import RxSwift
 import ObjectMapper
 @testable import techchallenge_jingluo

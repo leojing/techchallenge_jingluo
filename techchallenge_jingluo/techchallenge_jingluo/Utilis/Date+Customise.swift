@@ -18,7 +18,7 @@ extension Date {
     
     func timeOfHour() -> String? {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "Ha"
+        dateFormatter.dateFormat = "ha"
         return dateFormatter.string(from: self)
     }
 }

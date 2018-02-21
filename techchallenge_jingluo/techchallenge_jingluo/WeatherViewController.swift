@@ -23,11 +23,15 @@ class WeatherViewController: UIViewController {
     var viewModel: WeatherViewModel?
     fileprivate let disposeBag = DisposeBag()
 
+    fileprivate var selectedIndex = IndexPath(item: -1, section: 0)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupUI()
         configViewModel()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(WeatherViewController.rotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -42,20 +46,15 @@ class WeatherViewController: UIViewController {
     }
     
     fileprivate func setupTableView() {
-        dailyTableView.estimatedRowHeight = 80
+        dailyTableView.estimatedRowHeight = 50
         dailyTableView.rowHeight = UITableViewAutomaticDimension
         dailyTableView.register(DailyTableViewCell.nib(), forCellReuseIdentifier: DailyTableViewCell.reuseId())
         
         // MARK: set up tableview cell selected action
         dailyTableView.rx.itemSelected
             .subscribe(onNext: { indexPath in
-                let dailyData = self.viewModel?.dailyDataWithIndex(indexPath)
-                DispatchQueue.main.async {
-                    self.updateThemeColor(dailyData?.icon, updateSummaryViewInfo: WeatherDisplayModel(city: nil, summary: dailyData?.summary, temperature: dailyData?.temperatureHigh))
-                    
-                    // Hide hourly collectionView
-                    self.hideHourlyCollectionView(true, true)
-                }
+                self.selectedIndex = indexPath
+                self.updateUIBySelectedIndexPath(self.selectedIndex)
             }).disposed(by: disposeBag)
     }
     
@@ -85,9 +84,7 @@ class WeatherViewController: UIViewController {
         viewModel?.weather.asObservable()
             .filter{$0 != nil}
             .subscribe(onNext: { w in
-                DispatchQueue.main.async {
-                    self.updateThemeColor(w?.currently?.icon, updateSummaryViewInfo: WeatherDisplayModel(city: nil, summary: w?.currently?.summary, temperature: w?.currently?.temperature))
-                }
+                self.updateUIBySelectedIndexPath(self.selectedIndex)
             }, onError: { error in
                 print(error.localizedDescription)
             }, onCompleted: nil, onDisposed: nil)
@@ -111,22 +108,49 @@ class WeatherViewController: UIViewController {
     
     // MARK: Actions
     
-    @IBAction func tapGestureAction(_ sender: Any) {
-        let weather = viewModel?.weather.value
-        updateThemeColor(weather?.currently?.icon, updateSummaryViewInfo: WeatherDisplayModel(city: nil, summary: weather?.currently?.summary, temperature: weather?.currently?.temperature))
-        
-        // show hourly collectionView
-        hideHourlyCollectionView(false, true)
+    @IBAction func tapGestureAction(_ sender: Any?) {
+        selectedIndex = IndexPath(item: -1, section: 0)
+        updateUIBySelectedIndexPath(selectedIndex)
+    }
+    
+    @objc fileprivate func rotated() {
+        updateUIBySelectedIndexPath(selectedIndex)
     }
     
     // MARK: update UI
+    
+    fileprivate func updateUIBySelectedIndexPath(_ indexPath: IndexPath) {
+        var displayModel = WeatherDisplayModel(city: nil, summary: nil, temperature: nil)
+        var icon: String?
+        var isHideHourly = false
+        
+        switch indexPath.row {
+        case -1:
+            let weather = viewModel?.weather.value
+            displayModel = WeatherDisplayModel(city: nil, summary: weather?.currently?.summary, temperature: weather?.currently?.temperature)
+            icon = weather?.currently?.icon
+            isHideHourly = false
+            
+        default:
+            let dailyData = self.viewModel?.dailyDataWithIndex(indexPath)
+            displayModel = WeatherDisplayModel(city: nil, summary: dailyData?.summary, temperature: dailyData?.temperatureHigh)
+            icon = dailyData?.icon
+            isHideHourly = true
+        }
+        
+        DispatchQueue.main.async {
+            self.updateThemeColor(icon, updateSummaryViewInfo: displayModel)
+            self.updateSummaryView(displayModel)
+            
+            // Hide hourly collectionView
+            self.hideHourlyCollectionView(isHideHourly, true)
+        }
+    }
     
     fileprivate func updateThemeColor(_ icon: String?, updateSummaryViewInfo displayModel: WeatherDisplayModel?) {
         if let icon = icon, let colors = ThemeColor.fromDescription(icon)?.convertToColor() {
             self.gradientView.insertThemeColorLayer(colors)
         }
-        
-        self.updateSummaryView(displayModel)
     }
     
     fileprivate func updateSummaryView(_ weather: WeatherDisplayModel?) {

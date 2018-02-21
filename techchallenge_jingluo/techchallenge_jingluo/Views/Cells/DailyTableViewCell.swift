@@ -33,6 +33,10 @@ class DailyTableViewCell: UITableViewCell {
         super.prepareForReuse()
     }
     
+    override func layoutSubviews() {
+        iconImageView.layoutIfNeeded()
+    }
+    
     func configureCell(_ weather: WeatherDetail?) {
         guard let weather = weather else {
             return
