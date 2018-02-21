@@ -30,8 +30,8 @@ You may no need to install cocoapods, if encounter library error, then try to in
 
 
 ### 3rd-party libraries/tool used ###
-RxSwift.    
-Alamofire. 
-ObjectMapper. 
-SwiftIcons. 
-JSONExport. 
+1, RxSwift.   
+2, Alamofire. 
+3, ObjectMapper. 
+4, SwiftIcons. 
+5, JSONExport. 
