@@ -20,6 +20,7 @@ class WeatherViewModel {
     var hourlyData: Observable<[WeatherDetail]>? = nil
     var dailyData = Variable<[WeatherDetail]>([])
     var cityName = Variable<String>("Not found")
+    var alertMessage = Variable<String>("Error")
     
     init(_ apiService: ApiService) {
         bindDailyData()
@@ -37,7 +38,8 @@ class WeatherViewModel {
                     self.weather.value = weather
 
                 case .fail(let error):
-                    print(error.errorDescription ?? "Faild to load weather data")
+                    let errorMessage = error.errorDescription ?? "Faild to load weather data"
+                    self.alertMessage.value = errorMessage
                 }
             }, onError: nil, onCompleted: nil, onDisposed: nil)
             .disposed(by: disposeBag)

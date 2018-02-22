@@ -104,6 +104,13 @@ class WeatherViewController: UIViewController {
                 cell.configureCell(element)
             }
             .disposed(by: disposeBag)
+        
+        // MARK: show error message
+        viewModel?.alertMessage.asObservable()
+            .subscribe(onNext: { errorMessage in
+                self.showAlert(errorMessage)
+            }, onError: nil, onCompleted: nil, onDisposed: nil)
+            .disposed(by: disposeBag)
     }
     
     // MARK: Actions
@@ -115,6 +122,14 @@ class WeatherViewController: UIViewController {
     
     @objc fileprivate func rotated() {
         updateUIBySelectedIndexPath(selectedIndex)
+    }
+    
+    fileprivate func showAlert( _ message: String ) {
+        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
+        alert.addAction( UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     // MARK: update UI

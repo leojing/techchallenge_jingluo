@@ -42,6 +42,9 @@ class ApiClient: ApiService {
     
     // MARK: conform to ApiService protocol. For new class inherit from ApiClient class, you can overwrite this function and use any other HTTP networking libraries. Like in Unit test, I create MockApiClient which request network by load local JSON file.
     func networkRequest(_ url: URL, completionHandler: @escaping ((_ jsonResponse: [String: Any]?, _ error: RequestError?) -> Void)) {
+        if let isConnected = Connectivity.isConnectedToInternet, isConnected {
+            return completionHandler(nil, RequestError("Internet Not Available"))
+        }
         Alamofire.request(url)
             .responseJSON(queue: DispatchQueue.global(), options: .allowFragments) { response in
                 guard let json = response.result.value as? [String: Any] else {
@@ -52,6 +55,12 @@ class ApiClient: ApiService {
                 
                 completionHandler(json, nil)
         }
+    }
+}
+
+class Connectivity {
+    class var isConnectedToInternet: Bool? {
+        return NetworkReachabilityManager()?.isReachable
     }
 }
 

@@ -34,4 +34,4 @@ RxSwift
 Alamofire
 ObjectMapper
 SwiftIcons
-JSONExport
+JSONExport  
